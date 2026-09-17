@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Привязка приведённого мастера к тому, кто его привёл.
@@ -40,6 +41,12 @@ class Referral extends Model
     public function referredMaster(): BelongsTo
     {
         return $this->belongsTo(Master::class, 'referred_master_id');
+    }
+
+    /** Начисления по этой привязке. */
+    public function earnings(): HasMany
+    {
+        return $this->hasMany(ReferralEarning::class);
     }
 
     /**
